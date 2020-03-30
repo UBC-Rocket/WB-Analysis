@@ -27,13 +27,16 @@ plt.legend()
 # Total compressive force on the rocket
 total = np.add(df["drag_f"],df["thrust"])
 totalplot = plt.figure(figsize=(10,5))
-plt.plot(df["alt"],total)
+plt.plot(df["alt"],total, label="Total Compressive Load")
+plt.plot(df["alt"], df["drag_f"], label="Drag Force")
+plt.plot(df["alt"], df["thrust"], label="Engine Thrust")
+plt.legend()
 plt.title("Total Compressive Force (kN) vs Altitude (km)")
-
+plt.savefig("maxq.png")
 
 print("Maximum compressive load on the rocket is %s kN" %(max(total)))
 idxmax = total.argmax()
 velmax = np.multiply(df.loc[49,"sos"],df.loc[49,"mach"])
 altmax = df.loc[49,"alt"]
 print("Velocity and Altitude of max q is %s and %s" %(velmax,altmax))
-
+print("Mach is %s" %(df.loc[49,"mach"]))
